@@ -1,0 +1,8 @@
+$$ p2g4 $$
+data z := 321 ;
+main
+begin
+data y := 5 ;
+if [ y => z ] then
+    assign x := y ; ;
+end
