@@ -3,7 +3,7 @@
  * Date Made: 04/15/2021
  * Files Needed: any file with extension .sp21 & makefile to compile all files
  * Made For: CS-4280 (Program Translation Project) @ UMSL
- * Last Update : 04/22/2021 - Commented out debug cout's
+ * Last Update : 05/03/2021 - Added more code to node.h and various bug fixes
  */
 
  //NOTE : Test4 had an error to try to call
@@ -18,10 +18,13 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+
+  std::string base;
+  node<std::string> root;
   if(argc == 1)
   {
-    node<std::string> root = parser(cin);
-    root.statChecker();
+    root = parser(cin);
+    base = "kb";
   }
   else if(argc == 2) //check to see if the file has the proper extension
   {
@@ -47,20 +50,27 @@ int main(int argc, char* argv[])
 
     if(fs)
     {
-      node<std::string> root = parser(fs);
-      root.statChecker();
+      root = parser(fs);
+      base = filename.substr(0, filename.length()-5)
     }
     else
     {
       cout << filename << " - CANNOT be opened.";
-      return 1;
+      exit(1);
     }
   }
   else
   {
     cout << "Wrong number of arguments were given";
-    return 2;
+    exit(2);
   }
+
+  root.statChecker();
+
+  std::ofstream ofs;
+  ofs.open(base + ".asm");
+  root.genASM(ofs);
+  ofs.close();
 
   cout << "finished processing" << endl;
   return 0;

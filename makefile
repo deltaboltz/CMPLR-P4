@@ -1,7 +1,7 @@
 
 CC = g++
 CFLAGS = -I.
-OUTPUT = statSem
+OUTPUT = compfs
 CLEANCOMM = rm -f
 
 %.o: %.cpp
