@@ -350,7 +350,10 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-		if (tokens_.size())
+
+    genChildASM(out, scope, varset, stackvars, labelctr);
+
+		/*if (tokens_.size())
     {
 
 			if (tokens_[4].instance == "=<")
@@ -370,7 +373,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
         out << "BRPOS " << labelctr << "\n";
         out << "BRNEG ";
       }
-		}
+		}*/
 		out << labelctr << "\n";
 		std::string oldLabel(labelctr.c_str());
 		getNextLabelString(labelctr);
@@ -459,7 +462,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   }
   else if(key_ == "<goto>")
   {
-    out << "BR " << tokens_[1].instance;
+    out << "BR " << tokens_[0].instance << "\n";
   }
 }
 
