@@ -436,7 +436,9 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 
 template <class T>
-void node<T>::genChildASM(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr)
+void node<T>::genChildASM(std::ostream& out, int scope, \
+                          std::set<std::string>& varset, \
+                          stack<std::string, int>& stackvars, std::string& labelctr)
 {
 	for (int i = 0; i < children_.size(); i++)
   {
@@ -449,6 +451,7 @@ void node<T>::getNextLabelString(std::string& labelctr)
 {
 	// 65 - 122
 	int lasti = labelctr.length()-1;
+
 	if ((int)labelctr[lasti] < 122)
   {
 		labelctr[lasti]++;
