@@ -464,7 +464,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		genChildASM(out, scope, varset, stackvars, labelctr);
 		out << "STACKR 0\n";
 		out << "POP\n";
-		out << "STORE " << tokens_[0].instance << "\n";
+		out << "STORE " << tokens_[1].instance << "\n";
 	}
   else if(key_ == "<label>")
   {
