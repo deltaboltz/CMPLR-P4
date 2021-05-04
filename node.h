@@ -462,7 +462,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   }
   else if(key_ == "<goto>")
   {
-    out << "BR " << tokens_[0].instance << "\n";
+    out << "BR " << tokens_[1].instance << "\n";
   }
 }
 
