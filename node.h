@@ -226,7 +226,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   {         // empty | var id : num vars
 		if (tokens_.size())
     {
-			if (varset.find(tokens_[1].instance) != varset.end())
+			if (varset.find(tokens_[4].instance) != varset.end())
       {
 				// variable needs to be pushed to the stack
 				out << "PUSH\n";
