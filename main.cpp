@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
     if(fs)
     {
       root = parser(fs);
-      base = filename.substr(0, filename.length()-5)
+      base = filename.substr(0, filename.length()-5);
     }
     else
     {
