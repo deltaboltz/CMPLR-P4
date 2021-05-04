@@ -351,7 +351,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "SUB mathvar\n";
 		// ACC: a-b
 		if (tokens_.size())
-    { // < | > | =
+    {
 			if (tokens_[5].instance == "=<")
       {
 				out << "BRZPOS ";
@@ -400,20 +400,20 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "SUB mathvar\n";
 		// ACC: a-b
 		if (tokens_.size())
-    { // < | > | =
-      if (tokens_[5].instance == "=<")
+    {
+      if (tokens_[2].instance == "=<")
       {
 				out << "BRZPOS ";
 			}
-      else if (tokens_[5].instance == "=>")
+      else if (tokens_[2].instance == "=>")
       {
 				out << "BRZNEG ";
 			}
-      else if(tokens_[5].instance == "==")
+      else if(tokens_[2].instance == "==")
       {
 				out << "BRZERO ";
 			}
-      else if(tokens_[5].instance == "[")
+      else if(tokens_[2].instance == "[")
       {
         out << "BRPOS " << labelctr << "\n";
         out << "BRNEG ";
