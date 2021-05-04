@@ -219,6 +219,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 			out << "STACKR 0\n";
 			out << "STORE " << stackvars.getLastKey() << "\n";
 			out << "POP\n";
+      out << "THIS IS A TEST TO SEE OF BBBBBBBBB \n";
 			stackvars.pop();
 		}
 	}
@@ -394,6 +395,11 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
     else if(tokens_[0].instance == "==")
     {
       out << "BRZERO ";
+    }
+    else if(tokens_[0].instance == "%")
+    {
+      out << "BRPOS " << labelctr << "\n";
+      out << "BRNEG ";
     }
     else if(tokens_[0].instance == "[")
     {
