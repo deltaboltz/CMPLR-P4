@@ -29,7 +29,7 @@ void getNextLabelString(std::string& labelctr);
 
 void setR0Call(std::ostream& out, int scope, \
                  std::set<std::string>& varset, \
-                 stack<std::string, int>& stackvars, std::string& labelctr std::string& endLabel);
+                 stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel);
 
   public:
       // AST functionality
