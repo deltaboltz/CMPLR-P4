@@ -27,6 +27,10 @@ void genChildASM(std::ostream& out, int scope, \
 
 void getNextLabelString(std::string& labelctr);
 
+void setR0Call(std::ostream& out, int scope, \
+                 std::set<std::string>& varset, \
+                 stack<std::string, int>& stackvars, std::string& labelctr);
+
   public:
       // AST functionality
       void insert(node<T> child);
@@ -219,7 +223,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 			out << "STACKR 0\n";
 			out << "STORE " << stackvars.getLastKey() << "\n";
 			out << "POP\n";
-      out << "THIS IS A TEST TO SEE OF BBBBBBBBB \n";
+      //out << "THIS IS A TEST TO SEE A MISPRINT \n";
 			stackvars.pop();
 		}
 	}
@@ -382,7 +386,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << oldLabel << ": NOOP\n";
 	}
-  else if(key_ == "<R0>")
+  /*else if(key_ == "<R0>")
   {
     if (tokens_[0].instance == "=<")
     {
@@ -406,7 +410,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "BRPOS " << labelctr << "\n";
       out << "BRNEG ";
     }
-  }
+  }*/
   else if (key_ == "<loop>")
   {         // loop [ expr RO expr ] stat
 		out << labelctr << ": NOOP\n";
@@ -429,7 +433,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-    genChildASM(out, scope, varset, stackvars, labelctr);
+    setR0Call(out, scope, varset, stackvars, labelctr);
 
     /*if (tokens_[1].instance == "=<")
     {
@@ -514,6 +518,35 @@ void node<T>::getNextLabelString(std::string& labelctr)
 			}
 		}
 	}
+}
+
+template <class T>
+void node<T>::setR0Call(std::ostream& out, int scope, \
+                 std::set<std::string>& varset, \
+                 stack<std::string, int>& stackvars, std::string& labelctr)
+{
+  if (tokens_[0].instance == "=<")
+  {
+    out << "BRZPOS ";
+  }
+  else if (tokens_[0].instance == "=>")
+  {
+    out << "BRZNEG ";
+  }
+  else if(tokens_[0].instance == "==")
+  {
+    out << "BRZERO ";
+  }
+  else if(tokens_[0].instance == "%")
+  {
+    out << "BRPOS " << labelctr << "\n";
+    out << "BRNEG ";
+  }
+  else if(tokens_[0].instance == "[")
+  {
+    out << "BRPOS " << labelctr << "\n";
+    out << "BRNEG ";
+  }
 }
 
 #endif
