@@ -32,6 +32,7 @@ void getNextLabelString(std::string& labelctr);
       void insert(node<T> child);
       void insert(token childToken);
       node<T> (T key);
+      node<T> ();
 
       // traversal functionality
       void preOrder(std::ostream& out);
@@ -43,6 +44,12 @@ void getNextLabelString(std::string& labelctr);
 
       void genASM(std::ostream& out);
 };
+
+template <class T>
+node<T>::node()
+{
+  
+}
 
 template <class T>
 node<T>::node(T key)
