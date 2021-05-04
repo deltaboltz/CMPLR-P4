@@ -379,7 +379,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
         out << "BRNEG ";
       }
 		}*/
-		out << labelctr << "\n";
+		//out << labelctr << "\n";
 		std::string oldLabel(labelctr.c_str());
 		getNextLabelString(labelctr);
 		// gen asm for stat

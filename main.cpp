@@ -4,6 +4,7 @@
  * Files Needed: any file with extension .sp21 & makefile to compile all files
  * Made For: CS-4280 (Program Translation Project) @ UMSL
  * Last Update : 05/03/2021 - Added more code to node.h and various bug fixes
+ * TODO : Find problem of misprint B
  */
 
  //NOTE : Test4 had an error to try to call
