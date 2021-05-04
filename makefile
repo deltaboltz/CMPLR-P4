@@ -15,7 +15,7 @@ clean:
 	$(CLEANCOMM) *.o
 
 allclean:
-	$(CLEANCOMM) $(OUTPUT) *.o
+	$(CLEANCOMM) $(OUTPUT) *.o *.asm
 
 run:
 	$(OUTPUT) input.sp21
