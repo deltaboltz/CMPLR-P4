@@ -226,7 +226,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   {         // empty | var id : num vars
 		if (tokens_.size())
     {
-			if (varset.find(tokens_[4].instance) != varset.end())
+			if (varset.find(tokens_[1].instance) != varset.end())
       {
 				// variable needs to be pushed to the stack
 				out << "PUSH\n";
@@ -352,11 +352,11 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		// ACC: a-b
 		if (tokens_.size() == 6)
     { // < | > | =
-			if (tokens_[4].instance == "<=")
+			if (tokens_[4].instance == "=<")
       {
 				out << "BRZPOS ";
 			}
-      else if (tokens_[4].instance == ">=")
+      else if (tokens_[4].instance == "=>")
       {
 				out << "BRZNEG ";
 			}
@@ -401,11 +401,11 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		// ACC: a-b
 		if (tokens_.size() == 6)
     { // < | > | =
-      if (tokens_[4].instance == "<=")
+      if (tokens_[4].instance == "=<")
       {
 				out << "BRZPOS ";
 			}
-      else if (tokens_[4].instance == ">=")
+      else if (tokens_[4].instance == "=>")
       {
 				out << "BRZNEG ";
 			}
