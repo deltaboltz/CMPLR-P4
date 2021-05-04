@@ -527,7 +527,7 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
 {
   if (tokens_[0].instance == "=<")
   {
-    out << "BRZPOS " <<;
+    out << "BRZPOS ";
   }
   else if (tokens_[0].instance == "=>")
   {
