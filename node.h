@@ -525,11 +525,11 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
                  std::set<std::string>& varset, \
                  stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
-  if (tokens_[0].instance == "=<")
+  if (tokens_[0].instance.compare("=<"))
   {
     out << "BRNEG " << endLabel << "\n";
   }
-  else if (tokens_[0].instance == "=>")
+  else if (tokens_[0].instance.compare("=>"))
   {
     out << "BRPOS " << endLabel << "\n";
   }
