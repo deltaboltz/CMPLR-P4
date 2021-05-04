@@ -352,19 +352,19 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		// ACC: a-b
 		if (tokens_.size())
     { // < | > | =
-			if (tokens_[3].instance == "=<")
+			if (tokens_[4].instance == "=<")
       {
 				out << "BRZPOS ";
 			}
-      else if (tokens_[3].instance == "=>")
+      else if (tokens_[4].instance == "=>")
       {
 				out << "BRZNEG ";
 			}
-      else if(tokens_[3].instance == "==")
+      else if(tokens_[4].instance == "==")
       {
 				out << "BRZERO ";
 			}
-      else if(tokens_[3].instance == "[")
+      else if(tokens_[4].instance == "[")
       {
         out << "BRPOS " << labelctr << "\n";
         out << "BRNEG ";
@@ -401,19 +401,19 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		// ACC: a-b
 		if (tokens_.size())
     { // < | > | =
-      if (tokens_[3].instance == "=<")
+      if (tokens_[4].instance == "=<")
       {
 				out << "BRZPOS ";
 			}
-      else if (tokens_[3].instance == "=>")
+      else if (tokens_[4].instance == "=>")
       {
 				out << "BRZNEG ";
 			}
-      else if(tokens_[3].instance == "==")
+      else if(tokens_[4].instance == "==")
       {
 				out << "BRZERO ";
 			}
-      else if(tokens_[3].instance == "[")
+      else if(tokens_[4].instance == "[")
       {
         out << "BRPOS " << labelctr << "\n";
         out << "BRNEG ";
