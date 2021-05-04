@@ -234,7 +234,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 				out << "STACKW 0\n";
 				stackvars.push(tokens_[1].instance, scope);
 			}
-			out << "LOAD " << tokens_[4].instance << "\n";
+			out << "LOAD " << tokens_[2].instance << "\n";
 			out << "STORE " << tokens_[1].instance << "\n";
 			varset.insert(tokens_[1].instance);
 		}
