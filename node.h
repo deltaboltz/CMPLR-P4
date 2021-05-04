@@ -399,32 +399,30 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-		if (tokens_.size())
+
+    if (tokens_[4].instance == "=<")
     {
-      if (tokens_[4].instance == "=<")
-      {
-				out << "BRZPOS ";
-			}
-      else if (tokens_[4].instance == "=>")
-      {
-				out << "BRZNEG ";
-			}
-      else if(tokens_[4].instance == "==")
-      {
-				out << "BRZERO ";
-			}
-      else if(tokens_[4].instance == "[")
-      {
-        out << "BRPOS " << labelctr << "\n";
-        out << "BRNEG ";
-      }
+			out << "BRZPOS ";
+		}
+    else if (tokens_[4].instance == "=>")
+    {
+			out << "BRZNEG ";
+		}
+    else if(tokens_[4].instance == "==")
+    {
+			out << "BRZERO ";
+		}
+    else if(tokens_[4].instance == "[")
+    {
+      out << "BRPOS " << labelctr << "\n";
+      out << "BRNEG ";
+    }
 		out << endLabel << "\n";
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << "BR " << startLabel << "\n";
 		out << endLabel << ": NOOP\n";
 
-	}
 }
   else if (key_ == "<assign>")
   {         // id := expr
