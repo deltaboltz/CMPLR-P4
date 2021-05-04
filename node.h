@@ -350,7 +350,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-		if (tokens_.size() == 6)
+		if (tokens_.size())
     { // < | > | =
 			if (tokens_[3].instance == "=<")
       {
@@ -399,7 +399,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-		if (tokens_.size() == 6)
+		if (tokens_.size())
     { // < | > | =
       if (tokens_[3].instance == "=<")
       {
