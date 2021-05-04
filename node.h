@@ -433,6 +433,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
     out << "BR " << tokens_[1].instance;
   }
 }
+}
 
 
 template <class T>
