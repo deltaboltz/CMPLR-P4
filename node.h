@@ -527,11 +527,11 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
 {
   if (tokens_[0].instance.compare("=<"))
   {
-    out << "BRZPOS " << endLabel << "\n";
+    out << "BRNEG " << endLabel << "\n";
   }
   else if (tokens_[0].instance.compare("=>"))
   {
-    out << "BRZNEG " << endLabel << "\n";
+    out << "BRPOS " << endLabel << "\n";
   }
   else if(tokens_[0].instance.compare("=="))
   {
