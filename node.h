@@ -527,28 +527,26 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
 {
   if (tokens_[0].instance == "=<")
   {
-    out << "BRZPOS ";
+    out << "BRZPOS " << endLabel << "\n";
   }
   else if (tokens_[0].instance == "=>")
   {
-    out << "BRZNEG ";
+    out << "BRZNEG " << endLabel << "\n";
   }
   else if(tokens_[0].instance == "==")
   {
-    out << "BRZERO ";
+    out << "BRZERO " << endLabel << "\n";
   }
   else if(tokens_[0].instance == "%")
   {
     out << "BRPOS " << labelctr << "\n";
-    out << "BRNEG ";
+    out << "BRNEG " << endLabel << "\n";
   }
   else if(tokens_[0].instance == "[")
   {
     out << "BRPOS " << labelctr << "\n";
-    out << "BRNEG ";
+    out << "BRNEG " << endLabel << "\n";
   }
-
-  out << endLabel << "\n";
 }
 
 #endif
