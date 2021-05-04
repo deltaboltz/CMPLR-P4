@@ -400,19 +400,19 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "SUB mathvar\n";
 		// ACC: a-b
 
-    if (tokens_[4].instance == "=<")
+    if (tokens_[3].instance == "=<")
     {
 			out << "BRZPOS ";
 		}
-    else if (tokens_[4].instance == "=>")
+    else if (tokens_[3].instance == "=>")
     {
 			out << "BRZNEG ";
 		}
-    else if(tokens_[4].instance == "==")
+    else if(tokens_[3].instance == "==")
     {
 			out << "BRZERO ";
 		}
-    else if(tokens_[4].instance == "[")
+    else if(tokens_[3].instance == "[")
     {
       out << "BRPOS " << labelctr << "\n";
       out << "BRNEG ";
