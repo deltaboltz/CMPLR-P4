@@ -287,7 +287,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		if (tokens_.size() == 1)
     {
 			out << "STACKR 0\n";
-			out << "MULT \n";
+			out << "MULT -1\n";
 			out << "STACKW 0\n";
 		}
 	}
@@ -303,7 +303,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		}
 	}
   else if (key_ == "<stats>")
-  {         // stat ; mstat
+  {         // stat mstat
 		genChildASM(out, scope, varset, stackvars, labelctr);
 	}
   else if (key_ == "<mStat>")
@@ -343,34 +343,25 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-		if (tokens_.size() == 6) { // < | > | =
-			if (tokens_[4].instance == "<")
-      {
-				out << "BRPOS ";
-			}
-      else if (tokens_[4].instance == ">")
-      {
-				out << "BRNEG ";
-			}
-      else
-      {
-				out << "BRPOS " << labelctr << "\n";
-				out << "BRNEG ";
-			}
-		}
-    else if (tokens_.size() >= 7) { // =< | => | =
-			if (tokens_[3].instance == "=" && tokens_[4].instance == "<")
+		if (tokens_.size() == 6)
+    { // < | > | =
+			if (tokens_[4].instance == "<=")
       {
 				out << "BRZPOS ";
 			}
-      else if (tokens_[3].instance == "=" && tokens_[4].instance == ">")
+      else if (tokens_[4].instance == ">=")
       {
 				out << "BRZNEG ";
 			}
-      else //absolute equal
+      else if(tokens_[4].instance == "==")
       {
 				out << "BRZERO ";
 			}
+      else if(tokens_[4].instance == "[")
+      {
+        out << "BRPOS " << labelctr << "\n";
+        out << "BRNEG ";
+      }
 		}
 		out << labelctr << "\n";
 		std::string oldLabel(labelctr.c_str());
@@ -401,35 +392,25 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-		if (tokens_.size() == 6) { // < | > | =
-			if (tokens_[3].instance == "<")
+		if (tokens_.size() == 6)
+    { // < | > | =
+      if (tokens_[4].instance == "<=")
       {
 				out << "BRZPOS ";
 			}
-      else if (tokens_[3].instance == ">")
+      else if (tokens_[4].instance == ">=")
       {
 				out << "BRZNEG ";
 			}
-      else
-      {
-				out << "BRPOS " << endLabel << "\n";
-				out << "BRNEG ";
-			}
-		}
-    else if (tokens_.size() == 7) { // =< | => | [==]
-			if (tokens_[3].instance == "=" && tokens_[4].instance == "<")
-      {
-				out << "BRPOS ";
-			}
-      else if (tokens_[3].instance == "=" && tokens_[4].instance == ">")
-      {
-				out << "BRNEG ";
-			}
-      else
+      else if(tokens_[4].instance == "==")
       {
 				out << "BRZERO ";
 			}
-		}
+      else if(tokens_[4].instance == "[")
+      {
+        out << "BRPOS " << labelctr << "\n";
+        out << "BRNEG ";
+      }
 		out << endLabel << "\n";
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);

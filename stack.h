@@ -19,6 +19,9 @@ public:
   bool containsKey(K key, I scope);
 
   void printStack();
+
+  K getLastKey();
+  I getLastScope();
 };
 
 template <class K, class I>
@@ -79,6 +82,26 @@ bool stack<K, I>::containsKey(K key, I scope)
     }
   }
   return false;
+}
+
+template <class K, class I>
+K stack<K, I>::getLastKey()
+{
+	if (keys_.size())
+  {
+		return keys_[keys_.size()-1];
+	}
+	return "";
+}
+
+template <class K, class I>
+I stack<K, I>::getLastScope()
+{
+	if (scopes_.size())
+  {
+		return scopes_[scopes_.size()-1];
+	}
+	return 0;
 }
 
 template <class K, class I>
