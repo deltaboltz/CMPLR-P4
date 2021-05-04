@@ -1,4 +1,4 @@
-$$ p3g2 $$
+$ p3g2 $$
 data z := 321 ;
 data y := 567 ;
 main
