@@ -17,10 +17,15 @@ class node {
 
       void statChecker(stack<std::string, int> &stat, int scope);
 
-      void genASM(std::ostream out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr);
-      void genChildASM(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr);
+      void genASM(std::ostream& out, int scope, \
+            std::set<std::string>& varset, \
+            stack<std::string, int>& stackvars, std::string& labelctr);
 
-      void getNextLabelString(std::string& labelctr);
+void genChildASM(std::ostream& out, int scope, \
+                 std::set<std::string>& varset, \
+                 stack<std::string, int>& stackvars, std::string& labelctr);
+
+void getNextLabelString(std::string& labelctr);
 
   public:
       // AST functionality
