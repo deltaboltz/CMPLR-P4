@@ -29,7 +29,7 @@ void getNextLabelString(std::string& labelctr);
 
 void setR0Call(std::ostream& out, int scope, \
                  std::set<std::string>& varset, \
-                 stack<std::string, int>& stackvars, std::string& labelctr);
+                 stack<std::string, int>& stackvars, std::string& labelctr std::string& endLabel);
 
   public:
       // AST functionality
@@ -433,7 +433,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
-    setR0Call(out, scope, varset, stackvars, labelctr);
+    setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
     /*if (tokens_[1].instance == "=<")
     {
@@ -523,11 +523,11 @@ void node<T>::getNextLabelString(std::string& labelctr)
 template <class T>
 void node<T>::setR0Call(std::ostream& out, int scope, \
                  std::set<std::string>& varset, \
-                 stack<std::string, int>& stackvars, std::string& labelctr)
+                 stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
   if (tokens_[0].instance == "=<")
   {
-    out << "BRZPOS ";
+    out << "BRZPOS " <<;
   }
   else if (tokens_[0].instance == "=>")
   {
@@ -547,6 +547,8 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
     out << "BRPOS " << labelctr << "\n";
     out << "BRNEG ";
   }
+
+  out << endLabel << "\n";
 }
 
 #endif
