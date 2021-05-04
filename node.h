@@ -352,6 +352,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		// ACC: a-b
 		if (tokens_.size())
     {
+
 			if (tokens_[4].instance == "=<")
       {
 				out << "BRZPOS ";
@@ -377,6 +378,26 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << oldLabel << ": NOOP\n";
 	}
+  else if(key_ == "<R0>")
+  {
+    if (tokens_[1].instance == "=<")
+    {
+      out << "BRZPOS ";
+    }
+    else if (tokens_[1].instance == "=>")
+    {
+      out << "BRZNEG ";
+    }
+    else if(tokens_[1].instance == "==")
+    {
+      out << "BRZERO ";
+    }
+    else if(tokens_[1].instance == "[")
+    {
+      out << "BRPOS " << labelctr << "\n";
+      out << "BRNEG ";
+    }
+  }
   else if (key_ == "<loop>")
   {         // loop [ expr RO expr ] stat
 		out << labelctr << ": NOOP\n";
@@ -399,20 +420,21 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "POP\n";
 		out << "SUB mathvar\n";
 		// ACC: a-b
+    genChildASM(out, scope, varset, stackvars, labelctr);
 
-    if (tokens_[3].instance == "=<")
+    if (tokens_[1].instance == "=<")
     {
 			out << "BRZPOS ";
 		}
-    else if (tokens_[3].instance == "=>")
+    else if (tokens_[1].instance == "=>")
     {
 			out << "BRZNEG ";
 		}
-    else if(tokens_[3].instance == "==")
+    else if(tokens_[1].instance == "==")
     {
 			out << "BRZERO ";
 		}
-    else if(tokens_[3].instance == "[")
+    else if(tokens_[1].instance == "[")
     {
       out << "BRPOS " << labelctr << "\n";
       out << "BRNEG ";
