@@ -33,7 +33,7 @@ ADD mathvar
 STACKW 0
 STACKR 0
 POP
-STORE assign
+STORE sum
 PUSH
 LOAD z
 STACKW 0
@@ -48,7 +48,7 @@ ADD mathvar
 STACKW 0
 STACKR 0
 POP
-STORE assign
+STORE z
 BR A
 B: NOOP
 PUSH
