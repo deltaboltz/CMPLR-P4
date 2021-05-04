@@ -527,15 +527,16 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
 {
   if (tokens_[0].instance == "=<")
   {
-    out << "BRZPOS " << endLabel << "\n";
+    out << "BRNEG " << endLabel << "\n";
   }
   else if (tokens_[0].instance == "=>")
   {
-    out << "BRZNEG " << endLabel << "\n";
+    out << "BRPOS " << endLabel << "\n";
   }
   else if(tokens_[0].instance == "==")
   {
-    out << "BRZERO " << endLabel << "\n";
+    out << "BRPOS " << endLabel << "\n";
+    out << "BRNEG " << endLabel << "\n";
   }
   else if(tokens_[0].instance == "%")
   {
@@ -544,8 +545,7 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
   }
   else if(tokens_[0].instance == "[")
   {
-    out << "BRPOS " << labelctr << "\n";
-    out << "BRNEG " << endLabel << "\n";
+    out << "BRZERO " << endLabel << "\n";
   }
 }
 
