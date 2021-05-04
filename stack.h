@@ -87,9 +87,9 @@ bool stack<K, I>::containsKey(K key, I scope)
 template <class K, class I>
 K stack<K, I>::getLastKey()
 {
-	if (keys_.size())
+	if (keysK.size())
   {
-		return keys_[keys_.size()-1];
+		return keysK[keysK.size()-1];
 	}
 	return "";
 }
@@ -97,9 +97,9 @@ K stack<K, I>::getLastKey()
 template <class K, class I>
 I stack<K, I>::getLastScope()
 {
-	if (scopes_.size())
+	if (scopesI.size())
   {
-		return scopes_[scopes_.size()-1];
+		return scopesI[scopesI.size()-1];
 	}
 	return 0;
 }
