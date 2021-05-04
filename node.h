@@ -380,19 +380,19 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 	}
   else if(key_ == "<R0>")
   {
-    if (tokens_[1].instance == "=<")
+    if (tokens_[0].instance == "=<")
     {
       out << "BRZPOS ";
     }
-    else if (tokens_[1].instance == "=>")
+    else if (tokens_[0].instance == "=>")
     {
       out << "BRZNEG ";
     }
-    else if(tokens_[1].instance == "==")
+    else if(tokens_[0].instance == "==")
     {
       out << "BRZERO ";
     }
-    else if(tokens_[1].instance == "[")
+    else if(tokens_[0].instance == "[")
     {
       out << "BRPOS " << labelctr << "\n";
       out << "BRNEG ";
@@ -422,7 +422,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		// ACC: a-b
     genChildASM(out, scope, varset, stackvars, labelctr);
 
-    if (tokens_[1].instance == "=<")
+    /*if (tokens_[1].instance == "=<")
     {
 			out << "BRZPOS ";
 		}
@@ -438,7 +438,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
     {
       out << "BRPOS " << labelctr << "\n";
       out << "BRNEG ";
-    }
+    }*/
 		out << endLabel << "\n";
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
