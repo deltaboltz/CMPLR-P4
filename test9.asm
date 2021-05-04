@@ -18,7 +18,7 @@ STORE mathvar
 STACKR 0
 POP
 SUB mathvar
-BRZPOS B
+BRNEG B
 PUSH
 LOAD sum
 STACKW 0
