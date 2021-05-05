@@ -542,7 +542,6 @@ static node<std::string> Assign()
 // <R0> -> opTK(=>) | opTK(=<) | opTK(==) | opTK([) opTK(==) opTK(]) | opTK(%)
 static void R0(node<std::string>& root)
 {
-  node<std::string> root("<R0>");
 
   if(t.id == opordel && !t.instance.compare("=>"))
   {
