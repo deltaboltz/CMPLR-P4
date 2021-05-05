@@ -579,7 +579,7 @@ static node<std::string> R0()
     }
     parseErr("opTK: ']'");
   }
-  else if(t.id == opordel && !t.instance.compare("%"))
+  if(t.id == opordel && !t.instance.compare("%"))
   {
     root.insert(t);
     t = scan(in);
