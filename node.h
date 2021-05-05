@@ -521,11 +521,6 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
         out << "SUB mathvar\n";
         out << "BRZERO " << endLabel << "\n";
       }
-
-      children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
-
-      out << "BR " << startLabelHolder << "\n";
-      out << endLabelHolder << ": NOOP\n";
     }
 		/*out << labelctr << ": NOOP\n";
 		/*std::string startLabel(labelctr.c_str());
@@ -551,10 +546,10 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		//out << endLabel << "\n";*/
 
 		//gen asm for stat
-		/*children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
+		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
 		out << "BR " << startLabelHolder << "\n";
-		out << endLabelHolder << ": NOOP\n";*/
+		out << endLabelHolder << ": NOOP\n";
 
 }
   else if (key_ == "<assign>")
