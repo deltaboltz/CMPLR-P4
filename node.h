@@ -406,11 +406,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   else if(key_ == "<R0>")
   {
 
-    out << "STACKR 0\n";
-    out << "POP\n";
-    out << "STORE mathvar\n";
-    out << "STACKR 0\n";
-    out << "POP\n";
+
     std::string startLabel(labelctr.c_str());
     getNextLabelString(labelctr);
     std::string endLabel(labelctr.c_str());
@@ -468,11 +464,11 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		}
 		// expr:b is at stack[0]
 		// expr:a is at stack[1]
-		/*out << "STACKR 0\n";
+		out << "STACKR 0\n";
 		out << "POP\n";
 		out << "STORE mathvar\n";
 		out << "STACKR 0\n";
-		out << "POP\n";*/
+		out << "POP\n";
     //genChildASM(out, scope, varset, stackvars, labelctr);
 		// ACC: a-b
     //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
