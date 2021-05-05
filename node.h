@@ -6,9 +6,6 @@
 #include "token.h"
 #include "stack.h"
 
-std::string endLabelHolder;
-std::string startLabelHolder;
-
 template <class T>
 class node {
   private:
@@ -44,6 +41,9 @@ class node {
       void statChecker();
 
       void genASM(std::ostream& out);
+
+      std::string endLabelHolder = "";
+      std::string startLabelHolder = "";
 };
 
 template <class T>
