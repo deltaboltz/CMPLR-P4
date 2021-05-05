@@ -566,7 +566,7 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
   {
     //out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
     out << "SUB mathvar\n";
-    out << "BRZERO " << labelctr << "\n";
+    out << "BRZERO " << endLabel << "\n";
   }
 }
 
