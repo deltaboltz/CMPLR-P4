@@ -539,6 +539,7 @@ void node<T>::getNextLabelString(std::string& labelctr)
 template <class T>
 void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
+  out << "TESTING TO SEE IF WE COME IN!!!!\n";
   if (tokens_[0].instance.compare("=<"))
   {
     out << "SUB mathvar\n";
