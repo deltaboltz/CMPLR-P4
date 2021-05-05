@@ -540,23 +540,23 @@ template <class T>
 void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
   out << "TESTING TO SEE IF WE COME IN!!!!\n";
-  if (tokens_[0].instance.compare("=<"))
+  if (!tokens_[0].instance.compare("=<"))
   {
     out << "WE COME IN HERE ALREADY!!!!\n";
     out << "SUB mathvar\n";
     out << "BRNEG " << endLabel << "\n";
   }
-  else if (tokens_[0].instance.compare("=>"))
+  else if (!tokens_[0].instance.compare("=>"))
   {
     out << "SUB mathvar\n";
     out << "BRPOS " << endLabel << "\n";
   }
-  else if(tokens_[0].instance.compare("=="))
+  else if(!tokens_[0].instance.compare("=="))
   {
     out << "SUB mathvar\n";
     out << "BRZERO " << endLabel << "\n";
   }
-  else if(tokens_[0].instance.compare("%"))
+  else if(!tokens_[0].instance.compare("%"))
   {
     out << "MULT mathvar\n";
     out << "BRPOS " << endLabel << "\n";
