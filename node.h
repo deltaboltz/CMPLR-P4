@@ -405,6 +405,11 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 	}
   else if(key_ == "<R0>")
   {
+    std::string startLabel(labelctr.c_str());
+    getNextLabelString(labelctr);
+    std::string endLabel(labelctr.c_str());
+    getNextLabelString(labelctr);
+
     if (!tokens_[1].instance.compare("=<"))
     {
       out << "THIS IS A TEST FOR =< !!!!\n"; //debug
