@@ -479,7 +479,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
-    std::string oldLabel(labelctr.c_str());
+    std::string oldLabel(labelctr.c_str() - 1);
 		out << "BR " << oldLabel << "\n";
 		out << endLabelHolder << ": NOOP\n";
 
