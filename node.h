@@ -418,19 +418,19 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
     if (!tokens_[0].instance.compare("=<"))
     {
-      out << "THIS IS A TEST FOR =< !!!!\n"; //debug
+      //out << "THIS IS A TEST FOR =< !!!!\n"; //debug
       out << "SUB mathvar\n";
       out << "BRNEG " << endLabel << "\n";
     }
     else if (!tokens_[0].instance.compare("=>"))
     {
-      out << "THIS IS A TEST FOR => !!!!\n"; //debug
+      //out << "THIS IS A TEST FOR => !!!!\n"; //debug
       out << "SUB mathvar\n";
       out << "BRPOS " << endLabel << "\n";
     }
     else if(!tokens_[0].instance.compare("=="))
     {
-      out << "THIS IS A TEST FOR == !!!!\n"; //debug
+      //out << "THIS IS A TEST FOR == !!!!\n"; //debug
       out << "SUB mathvar\n";
       out << "BRPOS " << endLabel << "\n";
       out << "BRNEG " << endLabel << "\n";
@@ -438,7 +438,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
     else if(!tokens_[0].instance.compare("%"))
     {
-      out << "THIS IS A TEST FOR % !!!!\n"; //debug
+      //out << "THIS IS A TEST FOR % !!!!\n"; //debug
       out << "MULT mathvar\n";
       out << "BRPOS " << endLabel << "\n";
     }
