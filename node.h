@@ -540,6 +540,7 @@ template <class T>
 void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
   std::string tempString = tokens_[0].instance;
+  out << "OUR TEMP IS SET TO " << tempString << "\n";
   out << "TESTING TO SEE IF WE COME IN!!!!\n"; //debug
   if (tempString == "=<")
   {
