@@ -3,8 +3,8 @@
  * Date Made: 04/15/2021
  * Files Needed: any file with extension .sp21 & makefile to compile all files
  * Made For: CS-4280 (Program Translation Project) @ UMSL
- * Last Update : 05/03/2021 - Added more code to node.h and various bug fixes
- * TODO : Find problem of misprint B
+ * Last Update : 05/04/2021 - Added more code to node.h and various bug fixes
+ * TODO : FINISHED
  */
 
  //NOTE : Test4 had an error to try to call
@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
 
   std::string base;
   node<std::string> root;
+
   if(argc == 1)
   {
     root = parser(cin);

@@ -17,19 +17,13 @@ class node {
 
       void statChecker(stack<std::string, int> &stat, int scope);
 
-      void genASM(std::ostream& out, int scope, \
-            std::set<std::string>& varset, \
-            stack<std::string, int>& stackvars, std::string& labelctr);
+      void genASM(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr);
 
-void genChildASM(std::ostream& out, int scope, \
-                 std::set<std::string>& varset, \
-                 stack<std::string, int>& stackvars, std::string& labelctr);
+      void genChildASM(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr);
 
-void getNextLabelString(std::string& labelctr);
+      void getNextLabelString(std::string& labelctr);
 
-void setR0Call(std::ostream& out, int scope, \
-                 std::set<std::string>& varset, \
-                 stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel);
+      void setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel);
 
   public:
       // AST functionality
@@ -166,6 +160,7 @@ void node<T>::statChecker(stack<std::string, int> &stat, int scope)
       if(tokens_[i].id == identifier)
       {
         std::string k = tokens_[i].instance;
+
         if(!stat.containsKey(k))
         {
           std::cout << "SEMANTICS ERR\n";
@@ -211,6 +206,8 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
     {
 			out << *itr << " 0\n";
 		}
+
+    //these will be our temp variables
 		out << "outvar 0\n";
 		out << "mathvar 0\n";
 	}
@@ -223,12 +220,12 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 			out << "STACKR 0\n";
 			out << "STORE " << stackvars.getLastKey() << "\n";
 			out << "POP\n";
-      //out << "THIS IS A TEST TO SEE A MISPRINT \n";
+      //out << "THIS IS A TEST TO SEE A MISPRINT \n"; //debug
 			stackvars.pop();
 		}
 	}
   else if (key_ == "<vars>")
-  {         // empty | var id : num vars
+  {         // empty | var id := num vars
 		if (tokens_.size())
     {
 			if (varset.find(tokens_[1].instance) != varset.end())
@@ -240,6 +237,8 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 				stackvars.push(tokens_[1].instance, scope);
 			}
 
+      //the way that I read in a - I had to work around actually reading in a
+      //  "-" so I multiply it by a -1 at the beginning before storing it
       if(tokens_[4].instance == "-")
       {
         out << "LOAD " << tokens_[5].instance << "\n";
@@ -254,11 +253,13 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 			varset.insert(tokens_[1].instance);
 		}
+
 		genChildASM(out, scope, varset, stackvars, labelctr);
 	}
   else if (key_ == "<expr>")
   {                         // N - expr | N
 		genChildASM(out, scope, varset, stackvars, labelctr);
+
 		if(tokens_.size())
     {
 			out << "STACKR 0\n";
@@ -272,6 +273,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   else if (key_ == "<A>")
   {                         // M + A | M
 		genChildASM(out, scope, varset, stackvars, labelctr);
+
 		if(tokens_.size())
     {
 			out << "STACKR 0\n";
@@ -285,6 +287,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   else if (key_ == "<N>")
   {                         // A / N | A * N | A
 		genChildASM(out, scope, varset, stackvars, labelctr);
+
 		if(tokens_.size() && tokens_[0].instance == "*")
     {
 			out << "STACKR 0\n";
@@ -317,7 +320,8 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   else if (key_ == "<R>")
   {                         // ( expr ) | idTK | numTK
 		genChildASM(out, scope, varset, stackvars, labelctr);
-		// [ expr ] is on stack
+
+		// ( expr ) is on stack
 		if (tokens_[0].id == identifier || tokens_[0].id == integer)
     {
 			out << "PUSH\n";
@@ -330,19 +334,19 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		genChildASM(out, scope, varset, stackvars, labelctr);
 	}
   else if (key_ == "<mStat>")
-  {         // empty | stat ; mstat
+  {         // empty | stat mstat
 		genChildASM(out, scope, varset, stackvars, labelctr);
 	}
   else if (key_ == "<stat>")
-  {         // in | out | block | if | loop | assign | goto | label
+  {         // in ;| out ;| block ;| if ;| loop ;| assign ;| goto ;| label;
 		genChildASM(out, scope, varset, stackvars, labelctr);
 	}
   else if (key_ == "<in>")
-  {         // in id
+  {         // getter idTK
 		out << "READ " << tokens_[1].instance << "\n";
 	}
   else if (key_ == "<out>")
-  {         // out expr
+  {         // outter expr
 		genChildASM(out, scope, varset, stackvars, labelctr);
 		out << "STACKR 0\n";
 		out << "POP\n";
@@ -351,12 +355,13 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 	}
   else if (key_ == "<if>")
   {
-    // cond [ exprA RO exprB ] then stat
+    // if [ exprA RO exprB ] then stat
 		// do not generate asm for stat yet.
 		for (int i = 0; i < children_.size()-1; i++)
     {
 			children_[i].genASM(out, scope, varset, stackvars, labelctr);
 		}
+
 		// exprB is at stack[0]
 		// exprA is at stack[1]
 		out << "STACKR 0\n";
@@ -393,6 +398,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << labelctr << "\n";
 		std::string oldLabel(labelctr.c_str());
 		getNextLabelString(labelctr);
+
 		// gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << oldLabel << ": NOOP\n";
@@ -463,6 +469,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "BRNEG ";
     }*/
 		//out << endLabel << "\n";
+
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << "BR " << startLabel << "\n";
@@ -470,17 +477,17 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 }
   else if (key_ == "<assign>")
-  {         // id := expr
+  {         // assign idTK := expr
 		genChildASM(out, scope, varset, stackvars, labelctr);
 		out << "STACKR 0\n";
 		out << "POP\n";
 		out << "STORE " << tokens_[1].instance << "\n";
 	}
-  else if(key_ == "<label>")
+  else if(key_ == "<label>") //void idTK
   {
     out << tokens_[1].instance << ": NOOP";
   }
-  else if(key_ == "<goto>")
+  else if(key_ == "<goto>") //proc idTK
   {
     out << "BR " << tokens_[1].instance << "\n";
   }
@@ -488,9 +495,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 
 template <class T>
-void node<T>::genChildASM(std::ostream& out, int scope, \
-                          std::set<std::string>& varset, \
-                          stack<std::string, int>& stackvars, std::string& labelctr)
+void node<T>::genChildASM(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr)
 {
 	for (int i = 0; i < children_.size(); i++)
   {
@@ -530,10 +535,9 @@ void node<T>::getNextLabelString(std::string& labelctr)
 	}
 }
 
+//Read that R0 returns and decide which opTK to use based on that reading
 template <class T>
-void node<T>::setR0Call(std::ostream& out, int scope, \
-                 std::set<std::string>& varset, \
-                 stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
+void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
   if (tokens_[0].instance.compare("=<"))
   {
