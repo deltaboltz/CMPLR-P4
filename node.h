@@ -446,7 +446,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "BRZERO " << endLabel << "\n";
     }
 
-    //out << "BR " << startLabel << "\n";
+    out << "BR " << startLabel << "\n";
     out << endLabel << ": NOOP\n";
   }
   else if (key_ == "<loop>")
@@ -469,7 +469,6 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "STORE mathvar\n";
 		out << "STACKR 0\n";
 		out << "POP\n";
-    //genChildASM(out, scope, varset, stackvars, labelctr);
 		// ACC: a-b
     //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
