@@ -478,7 +478,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "BRPOS " << endLabel << "\n";
     }
 
-    else if(!tokens_[3].instance.compare("]"))
+    else if(!tokens_[2].instance.compare("]"))
     {
       out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
       out << "SUB mathvar\n";
