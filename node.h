@@ -559,7 +559,7 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
     out << "MULT mathvar\n";
     out << "BRPOS " << endLabel << "\n";
   }
-  else if(tokens_[0].instance.compare("]"))
+  else
   {
     out << "THIS IS A TEST FOR [ == ] !!!!\n";
     out << "SUB mathvar\n";
