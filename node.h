@@ -375,7 +375,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "SUB mathvar\n";
 		// ACC: a-b
 
-    setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
+    setR0Call(out, scope, varset, stackvars, labelctr, labelctr);
 
 		//out << labelctr << "\n";
 		std::string oldLabel(labelctr.c_str());
