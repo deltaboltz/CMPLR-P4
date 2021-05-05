@@ -478,8 +478,8 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
-		out << "BR " << "TESTING RIGHT HERE!" << "\n";
-		out << endLabelHolder << ": NOOP\n";
+		out << "BR " << startLabel << "\n";
+		out << endLabel << ": NOOP\n";
 
 }
   else if (key_ == "<assign>")
