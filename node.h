@@ -410,10 +410,10 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 
     std::string startLabel(labelctr.c_str());
-    startLabelHolder(startLabel.c_str());
+    startLabelHolder = startLabel.c_str();
     getNextLabelString(labelctr);
     std::string endLabel(labelctr.c_str());
-    endLabelHolder(endLabel.c_str());
+    endLabelHolder = endLabel.c_str();
     getNextLabelString(labelctr);
 
     if (!tokens_[0].instance.compare("=<"))
