@@ -1,13 +1,14 @@
+$$ p4g5 $$
 main
 begin
-data y := -5 ;
+data y := 5 ;
 data z := 1 ;
 data sum := 0 ;
 getter y ;
-if [ y => z ] then
+loop [ y => z ]
     begin
     assign sum := sum + z ;
     assign z := z + 1 ;
-    end ;
+    end
 outter sum ;
 end
