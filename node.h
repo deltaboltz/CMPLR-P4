@@ -403,31 +403,42 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << oldLabel << ": NOOP\n";
 	}
-  /*else if(key_ == "<R0>")
+  else if(key_ == "<R0>")
   {
-    if (tokens_[0].instance == "=<")
+    if (!tokens_[1].instance.compare("=<"))
     {
-      out << "BRZPOS ";
+      out << "THIS IS A TEST FOR =< !!!!\n"; //debug
+      out << "SUB mathvar\n";
+      out << "BRNEG " << endLabel << "\n";
     }
-    else if (tokens_[0].instance == "=>")
+    else if (!tokens_[1].instance.compare("=>"))
     {
-      out << "BRZNEG ";
+      out << "THIS IS A TEST FOR => !!!!\n"; //debug
+      out << "SUB mathvar\n";
+      out << "BRPOS " << endLabel << "\n";
     }
-    else if(tokens_[0].instance == "==")
+    else if(!tokens_[1].instance.compare("=="))
     {
-      out << "BRZERO ";
+      out << "THIS IS A TEST FOR == !!!!\n"; //debug
+      out << "SUB mathvar\n";
+      out << "BRPOS " << endLabel << "\n";
+      out << "BRNEG " << endLabel << "\n";
     }
-    else if(tokens_[0].instance == "%")
+
+    else if(!tokens_[1].instance.compare("%"))
     {
-      out << "BRPOS " << labelctr << "\n";
-      out << "BRNEG ";
+      out << "THIS IS A TEST FOR % !!!!\n"; //debug
+      out << "MULT mathvar\n";
+      out << "BRPOS " << endLabel << "\n";
     }
-    else if(tokens_[0].instance == "[")
+
+    else if(!tokens_[2].instance.compare("]"))
     {
-      out << "BRPOS " << labelctr << "\n";
-      out << "BRNEG ";
+      out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
+      out << "SUB mathvar\n";
+      out << "BRZERO " << endLabel << "\n";
     }
-  }*/
+  }
   else if (key_ == "<loop>")
   {         // loop [ expr RO expr ] stat
 		out << labelctr << ": NOOP\n";
@@ -448,10 +459,11 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "STORE mathvar\n";
 		out << "STACKR 0\n";
 		out << "POP\n";
+    genChildASM(out, scope, varset, stackvars, labelctr);
 		// ACC: a-b
     //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
-    if (!tokens_[1].instance.compare("=<"))
+    /*if (!tokens_[1].instance.compare("=<"))
     {
       out << "THIS IS A TEST FOR =< !!!!\n"; //debug
       out << "SUB mathvar\n";
@@ -483,7 +495,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
       out << "SUB mathvar\n";
       out << "BRZERO " << endLabel << "\n";
-    }
+    }*/
 		//out << endLabel << "\n";
 
 		//gen asm for stat
