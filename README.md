@@ -1,6 +1,6 @@
 # CMPLR-P4 for CS 4280 @ UMSL
 
-This implements the local storage (second strategy)
+This implements the storage=local (+30 option)
 
 How to Run:
 
@@ -18,4 +18,4 @@ compfs *filename*:
   NOTE: sample tests are given, they are labeled with .sp21 extensions
 	!!!THE PROGRAM ONLY READS IN FILES WITH EXTENSION OF .sp21!!!
 
-All test files given for project scan, parse, and static semantic checks pass where they should. Outside sourced test projects not tested.
+All test files given for project scan, parse, static semantic checks, and compilation pass where they should. Outside sourced test projects not tested.

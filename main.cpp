@@ -74,6 +74,6 @@ int main(int argc, char* argv[])
   root.genASM(ofs);
   ofs.close();
 
-  cout << "finished processing" << endl;
+  cout << "finished processing: ASM is in: " << base << ".asm" << endl;
   return 0;
 }
