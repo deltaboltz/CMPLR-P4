@@ -406,11 +406,6 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   else if(key_ == "<R0>")
   {
 
-    for (int i = 0; i < children_.size()-1; i++)
-    {
-      children_[i].genASM(out, scope, varset, stackvars, labelctr);
-    }
-
     out << "STACKR 0\n";
     out << "POP\n";
     out << "STORE mathvar\n";
@@ -478,7 +473,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "STORE mathvar\n";
 		out << "STACKR 0\n";
 		out << "POP\n";*/
-    genChildASM(out, scope, varset, stackvars, labelctr);
+    //genChildASM(out, scope, varset, stackvars, labelctr);
 		// ACC: a-b
     //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
@@ -519,8 +514,9 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
-		out << "BR " << startLabel << "\n";
-		out << endLabel << ": NOOP\n";
+
+		/*out << "BR " << startLabel << "\n";
+		out << endLabel << ": NOOP\n";*/
 
 }
   else if (key_ == "<assign>")
