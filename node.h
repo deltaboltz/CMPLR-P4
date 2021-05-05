@@ -240,7 +240,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 				stackvars.push(tokens_[1].instance, scope);
 			}
 
-      if(tokens_[4] == "-")
+      if(tokens_[4].instance == "-")
       {
         out << "LOAD " << tokens_[5].instance << "\n";
         out << "STORE " << tokens_[1].instance << "\n";
