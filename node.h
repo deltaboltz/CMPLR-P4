@@ -542,6 +542,7 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
   out << "TESTING TO SEE IF WE COME IN!!!!\n";
   if (tokens_[0].instance.compare("=<"))
   {
+    out << "WE COME IN HERE ALREADY!!!!\n";
     out << "SUB mathvar\n";
     out << "BRNEG " << endLabel << "\n";
   }
