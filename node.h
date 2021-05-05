@@ -11,6 +11,8 @@ class node {
   private:
       std::vector<node<T>> children_;
       std::vector<token> tokens_;
+      std::string endLabelHolder;
+      std::string startLabelHolder;
 
       T key_;
       void preHelper(std::ostream& out, std::string indent);
@@ -408,8 +410,10 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 
     std::string startLabel(labelctr.c_str());
+    startLabelHolder = startLabel;
     getNextLabelString(labelctr);
     std::string endLabel(labelctr.c_str());
+    endLabelHolder = endLabel;
     getNextLabelString(labelctr);
 
     if (!tokens_[0].instance.compare("=<"))
@@ -445,16 +449,12 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "SUB mathvar\n";
       out << "BRZERO " << endLabel << "\n";
     }
-
-    children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
-  //  out << "BR " << startLabel << "\n";
-    out << endLabel << ": NOOP\n";
   }
   else if (key_ == "<loop>")
   {         // loop [ expr RO expr ] stat
 		out << labelctr << ": NOOP\n";
 		/*std::string startLabel(labelctr.c_str());
-		getNextLabelString(labelctr);
+    getNextLabelString(labelctr);
 		std::string endLabel(labelctr.c_str());
 		getNextLabelString(labelctr);*/
 
@@ -476,10 +476,10 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		//out << endLabel << "\n";
 
 		//gen asm for stat
-		//children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
+		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
-		/*out << "BR " << startLabel << "\n";
-		out << endLabel << ": NOOP\n";*/
+		out << "BR " << startLabelHolder << "\n";
+		out << endLabelHolder << ": NOOP\n";
 
 }
   else if (key_ == "<assign>")
