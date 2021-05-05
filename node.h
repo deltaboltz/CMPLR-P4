@@ -546,26 +546,26 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
     out << "SUB mathvar\n";
     out << "BRNEG " << endLabel << "\n";
   }
-  if (!tokens_[0].instance.compare("=>"))
+  else if (!tokens_[0].instance.compare("=>"))
   {
     out << "THIS IS A TEST FOR => !!!!\n"; //debug
     out << "SUB mathvar\n";
     out << "BRPOS " << endLabel << "\n";
   }
-  if(!tokens_[0].instance.compare("=="))
+  else if(!tokens_[0].instance.compare("=="))
   {
     out << "THIS IS A TEST FOR == !!!!\n"; //debug
     out << "SUB mathvar\n";
     out << "BRPOS " << endLabel << "\n";
     out << "BRNEG " << endLabel << "\n";
   }
-  if(!tokens_[0].instance.compare("%"))
+  else if(!tokens_[0].instance.compare("%"))
   {
     out << "THIS IS A TEST FOR % !!!!\n"; //debug
     out << "MULT mathvar\n";
     out << "BRPOS " << endLabel << "\n";
   }
-  if(!tokens_[2].instance.compare("]"))
+  else if(!tokens_[2].instance.compare("]"))
   {
     //out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
     out << "SUB mathvar\n";

@@ -548,19 +548,21 @@ static node<std::string> R0()
     return root;
   }
 
-  if(t.id == opordel && !t.instance.compare("=<"))
+  else if(t.id == opordel && !t.instance.compare("=<"))
   {
     root.insert(t);
     t = scan(in);
     return root;
   }
-  if(t.id == opordel && !t.instance.compare("=="))
+
+  else if(t.id == opordel && !t.instance.compare("=="))
   {
     root.insert(t);
     t = scan(in);
     return root;
   }
-  if(t.id == opordel && !t.instance.compare("["))
+
+  else if(t.id == opordel && !t.instance.compare("["))
   {
     root.insert(t);
     t = scan(in);
@@ -579,7 +581,7 @@ static node<std::string> R0()
     }
     parseErr("opTK: ']'");
   }
-  if(t.id == opordel && !t.instance.compare("%"))
+  else if(t.id == opordel && !t.instance.compare("%"))
   {
     root.insert(t);
     t = scan(in);
