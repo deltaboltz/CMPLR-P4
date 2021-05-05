@@ -431,7 +431,6 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "STORE mathvar\n";
 		out << "STACKR 0\n";
 		out << "POP\n";
-		out << "SUB mathvar\n";
 		// ACC: a-b
     setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
@@ -527,23 +526,27 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
 {
   if (tokens_[0].instance.compare("=<"))
   {
+    out << "SUB mathvar\n";
     out << "BRNEG " << endLabel << "\n";
   }
   else if (tokens_[0].instance.compare("=>"))
   {
+    out << "SUB mathvar\n";
     out << "BRPOS " << endLabel << "\n";
   }
   else if(tokens_[0].instance.compare("=="))
   {
+    out << "SUB mathvar\n";
     out << "BRZERO " << endLabel << "\n";
   }
   else if(tokens_[0].instance.compare("%"))
   {
-    out << "BRPOS " << labelctr << "\n";
-    out << "BRNEG " << endLabel << "\n";
+    out << "MULT mathvar\n"
+    out << "BRPOS " << endLabel << "\n"
   }
   else if(tokens_[0].instance.compare("["))
   {
+    out << "SUB mathvar\n";
     out << "BRPOS " << labelctr << "\n";
     out << "BRNEG " << endLabel << "\n";
   }
