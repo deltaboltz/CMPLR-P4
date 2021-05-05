@@ -410,19 +410,19 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
     std::string endLabel(labelctr.c_str());
     getNextLabelString(labelctr);
 
-    if (!tokens_[1].instance.compare("=<"))
+    if (!tokens_[0].instance.compare("=<"))
     {
       out << "THIS IS A TEST FOR =< !!!!\n"; //debug
       out << "SUB mathvar\n";
       out << "BRNEG " << endLabel << "\n";
     }
-    else if (!tokens_[1].instance.compare("=>"))
+    else if (!tokens_[0].instance.compare("=>"))
     {
       out << "THIS IS A TEST FOR => !!!!\n"; //debug
       out << "SUB mathvar\n";
       out << "BRPOS " << endLabel << "\n";
     }
-    else if(!tokens_[1].instance.compare("=="))
+    else if(!tokens_[0].instance.compare("=="))
     {
       out << "THIS IS A TEST FOR == !!!!\n"; //debug
       out << "SUB mathvar\n";
@@ -430,14 +430,14 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "BRNEG " << endLabel << "\n";
     }
 
-    else if(!tokens_[1].instance.compare("%"))
+    else if(!tokens_[0].instance.compare("%"))
     {
       out << "THIS IS A TEST FOR % !!!!\n"; //debug
       out << "MULT mathvar\n";
       out << "BRPOS " << endLabel << "\n";
     }
 
-    else if(!tokens_[2].instance.compare("]"))
+    else if(!tokens_[0].instance.compare("]"))
     {
       out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
       out << "SUB mathvar\n";
