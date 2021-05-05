@@ -453,13 +453,14 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   else if (key_ == "<loop>" || key_ == "<R0>")
   {         // loop [ expr RO expr ] stat
 
+    out << labelctr << ": NOOP\n";
+    std::string startLabel(labelctr.c_str());
+    getNextLabelString(labelctr);
+    std::string endLabel(labelctr.c_str());
+    getNextLabelString(labelctr);
+    
     if(key_ == "<loop>")
     {
-      out << labelctr << ": NOOP\n";
-  		std::string startLabel(labelctr.c_str());
-      getNextLabelString(labelctr);
-  		std::string endLabel(labelctr.c_str());
-  		getNextLabelString(labelctr);
 
   		// is condition true?
   		for (int i = 0; i < children_.size()-1; i++)
