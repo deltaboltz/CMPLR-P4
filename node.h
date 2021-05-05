@@ -405,7 +405,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << oldLabel << ": NOOP\n";
 	}
-  else if(key_ == "<R0>")
+  /*else if(key_ == "<R0>")
   {
 
 
@@ -449,14 +449,89 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "SUB mathvar\n";
       out << "BRZERO " << endLabel << "\n";
     }
-  }
-  else if (key_ == "<loop>")
+  }*/
+  else if (key_ == "<loop>" || key_ == "<R0>")
   {         // loop [ expr RO expr ] stat
-		out << labelctr << ": NOOP\n";
+
+    if(key_ == "<loop>")
+    {
+      out << labelctr << ": NOOP\n";
+  		/*std::string startLabel(labelctr.c_str());
+      getNextLabelString(labelctr);
+  		std::string endLabel(labelctr.c_str());
+  		getNextLabelString(labelctr);*/
+
+  		// is condition true?
+  		for (int i = 0; i < children_.size()-1; i++)
+      {
+  			children_[i].genASM(out, scope, varset, stackvars, labelctr);
+  		}
+  		// expr:b is at stack[0]
+  		// expr:a is at stack[1]
+  		out << "STACKR 0\n";
+  		out << "POP\n";
+  		out << "STORE mathvar\n";
+  		out << "STACKR 0\n";
+  		out << "POP\n";
+  		// ACC: a-b
+      //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
+
+  		//out << endLabel << "\n";
+    }
+
+    else if(key_ == "<R0>")
+    {
+      std::string startLabel(labelctr.c_str());
+      startLabelHolder = startLabel;
+      getNextLabelString(labelctr);
+      std::string endLabel(labelctr.c_str());
+      endLabelHolder = endLabel;
+      getNextLabelString(labelctr);
+
+      if (!tokens_[0].instance.compare("=<"))
+      {
+        //out << "THIS IS A TEST FOR =< !!!!\n"; //debug
+        out << "SUB mathvar\n";
+        out << "BRNEG " << endLabel << "\n";
+      }
+      else if (!tokens_[0].instance.compare("=>"))
+      {
+        //out << "THIS IS A TEST FOR => !!!!\n"; //debug
+        out << "SUB mathvar\n";
+        out << "BRPOS " << endLabel << "\n";
+      }
+      else if(!tokens_[0].instance.compare("=="))
+      {
+        //out << "THIS IS A TEST FOR == !!!!\n"; //debug
+        out << "SUB mathvar\n";
+        out << "BRPOS " << endLabel << "\n";
+        out << "BRNEG " << endLabel << "\n";
+      }
+
+      else if(!tokens_[0].instance.compare("%"))
+      {
+        //out << "THIS IS A TEST FOR % !!!!\n"; //debug
+        out << "MULT mathvar\n";
+        out << "BRPOS " << endLabel << "\n";
+      }
+
+      else if(!tokens_[0].instance.compare("["))
+      {
+        out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
+        out << "SUB mathvar\n";
+        out << "BRZERO " << endLabel << "\n";
+      }
+
+      children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
+
+      out << "BR " << startLabelHolder << "\n";
+      out << endLabelHolder << ": NOOP\n";
+    }
+		/*out << labelctr << ": NOOP\n";
 		/*std::string startLabel(labelctr.c_str());
     getNextLabelString(labelctr);
 		std::string endLabel(labelctr.c_str());
-		getNextLabelString(labelctr);*/
+		getNextLabelString(labelctr);
 
 		// is condition true?
 		for (int i = 0; i < children_.size()-1; i++)
@@ -473,13 +548,13 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		// ACC: a-b
     //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
-		//out << endLabel << "\n";
+		//out << endLabel << "\n";*/
 
 		//gen asm for stat
-		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
+		/*children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
 		out << "BR " << startLabelHolder << "\n";
-		out << endLabelHolder << ": NOOP\n";
+		out << endLabelHolder << ": NOOP\n";*/
 
 }
   else if (key_ == "<assign>")
