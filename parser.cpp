@@ -284,7 +284,10 @@ static node<std::string> mStat()
 {
   node<std::string> root("<mStat>");
 
-  if(t.id == keyword && ( !t.instance.compare("loop")|| !t.instance.compare("stat") || !t.instance.compare("outter") || !t.instance.compare("getter") || !t.instance.compare("assign")))
+  if(t.id == keyword && ( !t.instance.compare("if") || !t.instance.compare("loop")||
+  !t.instance.compare("stat") || !t.instance.compare("outter") || !t.instance.compare("getter") ||
+  !t.instance.compare("assign") || !t.instance.compare("void") ||
+  !t.instance.compare("proc") || !t.instance.compare("begin")))
   {
     root.insert(Stat());
     root.insert(mStat());
