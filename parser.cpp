@@ -27,7 +27,7 @@ static node<std::string> Out();
 static node<std::string> If();
 static node<std::string> Loop();
 static node<std::string> Assign();
-static node<std::string> R0();
+static void R0(node<std::string>& root);
 static node<std::string> Label();
 static node<std::string> Goto();
 
@@ -446,7 +446,7 @@ static node<std::string> If()
       t = scan(in);
 
       root.insert(Expr());
-      root.insert(R0());
+      R0(root);
       root.insert(Expr());
 
       if(t.id == opordel && !t.instance.compare("]"))
@@ -487,7 +487,7 @@ static node<std::string> Loop()
       t = scan(in);
 
       root.insert(Expr());
-      root.insert(R0());
+      R0(root);
       root.insert(Expr());
 
       if(t.id == opordel && !t.instance.compare("]"))
@@ -540,7 +540,7 @@ static node<std::string> Assign()
 }
 
 // <R0> -> opTK(=>) | opTK(=<) | opTK(==) | opTK([) opTK(==) opTK(]) | opTK(%)
-static node<std::string> R0()
+static void R0(node<std::string>& root)
 {
   node<std::string> root("<R0>");
 
@@ -548,21 +548,21 @@ static node<std::string> R0()
   {
     root.insert(t);
     t = scan(in);
-    return root;
+    return;
   }
 
   else if(t.id == opordel && !t.instance.compare("=<"))
   {
     root.insert(t);
     t = scan(in);
-    return root;
+    return;
   }
 
   else if(t.id == opordel && !t.instance.compare("=="))
   {
     root.insert(t);
     t = scan(in);
-    return root;
+    return;
   }
 
   else if(t.id == opordel && !t.instance.compare("["))
@@ -580,7 +580,7 @@ static node<std::string> R0()
     {
       root.insert(t);
       t = scan(in);
-      return root;
+      return;
     }
     parseErr("opTK: ']'");
   }
@@ -588,10 +588,9 @@ static node<std::string> R0()
   {
     root.insert(t);
     t = scan(in);
-    return root;
+    return;
   }
   parseErr("opTK: '=', '<', '>', '%'");
-  return root;
 }
 
 // <label> -> kwTK(void) idTK

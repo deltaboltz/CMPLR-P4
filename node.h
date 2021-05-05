@@ -449,14 +449,14 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       out << "BRZERO " << endLabel << "\n";
     }
   }
-  else if (key_ == "<loop>" || key_ == "<R0>")
+  else if (key_ == "<loop>")
   {         // loop [ expr RO expr ] stat
 
       out << labelctr << ": NOOP\n";
-  		/*std::string startLabel(labelctr.c_str());
+  		std::string startLabel(labelctr.c_str());
       getNextLabelString(labelctr);
   		std::string endLabel(labelctr.c_str());
-  		getNextLabelString(labelctr);*/
+  		getNextLabelString(labelctr);
 
   		// is condition true?
   		for (int i = 0; i < children_.size()-1; i++)
@@ -471,7 +471,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
   		out << "STACKR 0\n";
   		out << "POP\n";
   		// ACC: a-b
-      //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
+      setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
 
 		//out << endLabel << "\n";*/
@@ -480,8 +480,8 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
     //std::string oldLabel(labelctr.c_str());
-		out << "BR " << "A" << "\n";
-		out << "B" << ": NOOP\n";
+		out << "BR " << startLabel << "\n";
+		out << endLabel << ": NOOP\n";
 
 }
   else if (key_ == "<assign>")
@@ -544,7 +544,7 @@ void node<T>::getNextLabelString(std::string& labelctr)
 }
 
 //Read that R0 returns and decide which opTK to use based on that reading
-/*template <class T>
+template <class T>
 void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
   std::string tempString = tokens_[1].instance;
@@ -581,6 +581,6 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
     out << "SUB mathvar\n";
     out << "BRZERO " << endLabel << "\n";
   }
-}*/
+}
 
 #endif
