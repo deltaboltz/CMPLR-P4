@@ -364,15 +364,15 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
 		// exprB is at stack[0]
 		// exprA is at stack[1]
-		out << "STACKR 0\n";
+		/*out << "STACKR 0\n";
 		out << "POP\n";
 		out << "STORE mathvar\n";
 		out << "STACKR 0\n";
 		out << "POP\n";
-		out << "SUB mathvar\n";
+		out << "SUB mathvar\n";*/
 		// ACC: a-b
 
-    genChildASM(out, scope, varset, stackvars, labelctr);
+    //genChildASM(out, scope, varset, stackvars, labelctr);
 
 		/*if (tokens_.size())
     {
@@ -395,7 +395,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
         out << "BRNEG ";
       }
 		}*/
-		out << labelctr << "\n";
+		//out << labelctr << "\n";
 		std::string oldLabel(labelctr.c_str());
 		getNextLabelString(labelctr);
 
