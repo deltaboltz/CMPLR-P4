@@ -447,7 +447,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
     }
 
   //  out << "BR " << startLabel << "\n";
-  //  out << endLabel << ": NOOP\n";
+    out << endLabel << ": NOOP\n";
   }
   else if (key_ == "<loop>")
   {         // loop [ expr RO expr ] stat
