@@ -480,8 +480,8 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 
       children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
-      out << "BR " << startLabelHolder << "\n";
-      out << endLabelHolder << ": NOOP\n";
+      out << "BR " << startLabel << "\n";
+      out << endLabel << ": NOOP\n";
     }
 
     else if(key_ == "<R0>")
