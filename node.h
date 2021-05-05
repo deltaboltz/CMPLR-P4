@@ -541,8 +541,8 @@ void node<T>::setR0Call(std::ostream& out, int scope, \
   }
   else if(tokens_[0].instance.compare("%"))
   {
-    out << "MULT mathvar\n"
-    out << "BRPOS " << endLabel << "\n"
+    out << "MULT mathvar\n";
+    out << "BRPOS " << endLabel << "\n";
   }
   else if(tokens_[0].instance.compare("["))
   {
