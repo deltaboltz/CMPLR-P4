@@ -539,10 +539,10 @@ void node<T>::getNextLabelString(std::string& labelctr)
 template <class T>
 void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
-  out << "TESTING TO SEE IF WE COME IN!!!!\n";
+  //out << "TESTING TO SEE IF WE COME IN!!!!\n"; //debug
   if (!tokens_[0].instance.compare("=<"))
   {
-    out << "WE COME IN HERE ALREADY!!!!\n";
+    //out << "WE COME IN HERE ALREADY!!!!\n"; //debug
     out << "SUB mathvar\n";
     out << "BRNEG " << endLabel << "\n";
   }
@@ -554,7 +554,8 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
   else if(!tokens_[0].instance.compare("=="))
   {
     out << "SUB mathvar\n";
-    out << "BRZERO " << endLabel << "\n";
+    out << "BRPOS " << endLabel << "\n";
+    out << "BRNEG " << endLabel << "\n";
   }
   else if(!tokens_[0].instance.compare("%"))
   {
@@ -563,10 +564,9 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
   }
   else if(!tokens_[2].instance.compare("]"))
   {
-    out << "THIS IS A TEST FOR [ == ] !!!!\n";
+    //out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
     out << "SUB mathvar\n";
-    out << "BRPOS " << labelctr << "\n";
-    out << "BRNEG " << endLabel << "\n";
+    out << "BRZERO " << labelctr << "\n";
   }
 }
 
