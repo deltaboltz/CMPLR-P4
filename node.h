@@ -449,25 +449,41 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		out << "STACKR 0\n";
 		out << "POP\n";
 		// ACC: a-b
-    setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
+    //setR0Call(out, scope, varset, stackvars, labelctr, endLabel);
 
-    /*if (tokens_[1].instance == "=<")
+    if (!tokens_[1].instance.compare("=<"))
     {
-			out << "BRZPOS ";
+      out << "THIS IS A TEST FOR =< !!!!\n"; //debug
+      out << "SUB mathvar\n";
+			out << "BRNEG " << endLabel << "\n";
 		}
-    else if (tokens_[1].instance == "=>")
+    else if (!tokens_[1].instance.compare("=>"))
     {
-			out << "BRZNEG ";
+      out << "THIS IS A TEST FOR => !!!!\n"; //debug
+      out << "SUB mathvar\n";
+			out << "BRPOS " << endLabel << "\n";
 		}
-    else if(tokens_[1].instance == "==")
+    else if(!tokens_[1].instance.compare("=="))
     {
-			out << "BRZERO ";
+      out << "THIS IS A TEST FOR == !!!!\n"; //debug
+      out << "SUB mathvar\n";
+			out << "BRPOS " << endLabel << "\n";
+      out << "BRNEG " << endLabel << "\n";
 		}
-    else if(tokens_[1].instance == "[")
+
+    else if(!tokens_[1].instance.compare("%"))
     {
-      out << "BRPOS " << labelctr << "\n";
-      out << "BRNEG ";
-    }*/
+      out << "THIS IS A TEST FOR % !!!!\n"; //debug
+      out << "MULT mathvar\n";
+      out << "BRPOS " << endLabel << "\n";
+    }
+
+    else if(!tokens_[3].instance.compare("]"))
+    {
+      out << "THIS IS A TEST FOR [ == ] !!!!\n"; //debug
+      out << "SUB mathvar\n";
+      out << "BRZERO " << endLabel << "\n";
+    }
 		//out << endLabel << "\n";
 
 		//gen asm for stat
@@ -536,7 +552,7 @@ void node<T>::getNextLabelString(std::string& labelctr)
 }
 
 //Read that R0 returns and decide which opTK to use based on that reading
-template <class T>
+/*template <class T>
 void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& varset, stack<std::string, int>& stackvars, std::string& labelctr, std::string& endLabel)
 {
   std::string tempString = tokens_[1].instance;
@@ -573,6 +589,6 @@ void node<T>::setR0Call(std::ostream& out, int scope, std::set<std::string>& var
     out << "SUB mathvar\n";
     out << "BRZERO " << endLabel << "\n";
   }
-}
+}*/
 
 #endif
