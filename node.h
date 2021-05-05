@@ -11,8 +11,6 @@ class node {
   private:
       std::vector<node<T>> children_;
       std::vector<token> tokens_;
-      std::string endLabelHolder;
-      std::string startLabelHolder;
 
       T key_;
       void preHelper(std::ostream& out, std::string indent);
@@ -43,6 +41,8 @@ class node {
       void statChecker();
 
       void genASM(std::ostream& out);
+      std::string endLabelHolder;
+      std::string startLabelHolder;
 };
 
 template <class T>
@@ -478,8 +478,8 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		//gen asm for stat
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 
-		out << "BR " << startLabel << "\n";
-		out << endLabel << ": NOOP\n";
+		out << "BR " << startLabelHolder << "\n";
+		out << endLabelHolder << ": NOOP\n";
 
 }
   else if (key_ == "<assign>")
