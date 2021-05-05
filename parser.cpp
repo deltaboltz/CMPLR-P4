@@ -27,7 +27,7 @@ static node<std::string> Out();
 static node<std::string> If();
 static node<std::string> Loop();
 static node<std::string> Assign();
-static void R0(node<std::string>& root);
+static void R0(node<std::string>& root); //new R0 method, this allows for better reading and traversing for the node.h for compilation
 static node<std::string> Label();
 static node<std::string> Goto();
 

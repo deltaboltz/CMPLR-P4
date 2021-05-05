@@ -385,7 +385,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
 		children_[children_.size()-1].genASM(out, scope, varset, stackvars, labelctr);
 		out << oldLabel << ": NOOP\n";
 	}
-  /*else if(key_ == "<R0>")
+  /*else if(key_ == "<R0>") //old style statement when my parser rooted R0 as a new call, changed to go along with loop and if
   {
 
 
