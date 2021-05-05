@@ -243,6 +243,7 @@ void node<T>::genASM(std::ostream& out, int scope, std::set<std::string>& varset
       if(tokens_[4].instance == "-")
       {
         out << "LOAD " << tokens_[5].instance << "\n";
+        out << "MULT -1\n";
         out << "STORE " << tokens_[1].instance << "\n";
       }
       else
