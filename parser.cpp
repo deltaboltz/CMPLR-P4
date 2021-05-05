@@ -120,6 +120,11 @@ static node<std::string> Vars()
           root.insert(t); //insert root into node
           t = scan(in); //scan for next token
 
+          if(t.id == opordel && !t.instance.compare("-"))
+          {
+            root.insert(t);
+            t = scan(in);
+          }
           //if tokenID is any numTK
           if(t.id == integer)
           {
